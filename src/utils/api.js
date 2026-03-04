@@ -51,3 +51,17 @@ export function logoutRequest() {
         });
 }
 
+export function productsRequest() {
+    return fetch(`${API}/products`)
+        .then(async (response) => {
+            const result = await response.json();
+            if (!response.ok) {
+                throw new Error(result.message || 'Ошибка при загрузке продуктов');
+            }
+            if (!result.data || !Array.isArray(result.data)) {
+                throw new Error('Неверный формат ответа от сервера');
+            }
+            return result.data;
+        });
+}
+

@@ -10,7 +10,7 @@ export default createStore({
 
     getters: {
         isAuthenticated: (state) => !!state.token,
-
+        allProducts: (state) => state.products,
     },
 
     mutations: {
@@ -20,11 +20,14 @@ export default createStore({
         AUTH_ERROR: (state) => {
             state.token = '';
         },
-
+        SET_PRODUCTS: (state, products) => {
+            state.products = products;
+        },
         LOGOUT(state) {
             state.token = '';
         },
 
+    },
 
     actions: {
         AUTH_REQUEST: ({commit}, user) => {
@@ -71,7 +74,18 @@ export default createStore({
             });
         },
 
+        PRODUCTS: ({commit}) => {
+            return productsRequest()
+                .then(products => {
+                    commit('SET_PRODUCTS', products);
+                })
+                .catch(err => {
+                    console.error('Ошибка загрузки товаров:', err.message);
+                });
+        },
 
+
+    },
 
     modules: {
     }

@@ -29,6 +29,13 @@ const routes = [
         name: 'register',
         component: () => import('../views/register.vue'),
        beforeEnter: ifNotAuthenticated,
+    },
+    {
+        path: '/',
+        name: 'products',
+        component: () => import('../views/products.vue'),
+    },
+
 ];
 
 const router = createRouter({
