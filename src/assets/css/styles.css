@@ -18,6 +18,9 @@ body {
     min-height: 100vh;
     background: #dad3cf;
 }
+label {
+    text-align: left;
+}
 h1 {
 padding-bottom: 2em;
 }
