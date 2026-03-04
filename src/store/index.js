@@ -26,7 +26,30 @@ export default createStore({
         LOGOUT(state) {
             state.token = '';
         },
-
+        addToCart(state, product) {
+            const item = state.cart.find(i => i.id === product.id);
+            if (item) {
+                item.quantity = (item.quantity || 1) + 1;
+            } else {
+                state.cart.unshift({...product, quantity: 1});
+            }
+            localStorage.setItem('cart', JSON.stringify(state.cart));
+        },
+        incrementItem(state, itemId) {
+            const item = state.cart.find(i => i.id === itemId);
+            if (item) {
+                item.quantity++;
+            }
+        },
+        decrementItem(state, itemId) {
+            const item = state.cart.find(i => i.id === itemId);
+            if (item && item.quantity > 1) {
+                item.quantity--;
+            }
+        },
+        removeFromCart(state, itemId) {
+            state.cart = state.cart.filter(i => i.id !== itemId);
+        },
     },
 
     actions: {
@@ -84,7 +107,47 @@ export default createStore({
                 });
         },
 
+        CART: ({commit}) => {
+            return cartRequest()
+                .then(cart => {
+                    commit('SET_PRODUCTS', cart);
+                })
+                .catch(err => {
+                    console.error('Ошибка', err.message);
+                })
+        },
 
+        ADD_TO_CART({commit}, productId) {
+            return addToCartRequest(productId)
+                .then(result => {
+                    if (result.data && result.data.message === "Product add to cart") {
+                        const product = {id: productId};
+                        commit('addToCart', product);
+                    } else {
+                        throw new Error('Не удалось добавить в корзину');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при добавлении в корзину:', error);
+                    throw error;
+                });
+        },
+
+        DELETE_FROM_CART({ commit }, productId) {
+            return deleteFromCartRequest(productId)
+                .then(result => {
+                    if (result && result.message === "Item removed from cart") {
+                        const product = { id: productId };
+                        commit('removeItem', product);
+                    } else {
+                        throw new Error('Не удалось удалить из корзины');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при удалении из корзины:', error);
+                    throw error;
+                });
+        }
     },
 
     modules: {

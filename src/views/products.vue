@@ -25,10 +25,10 @@ export default {
     return {
       products: [
         { id: 1, name: 'Мыло', description: 'Вкусно пахнет', price: 100 },
-        { id: 2, name: 'Зубная щётка', description: 'Настоящая', price: 650 },
+        { id: 2, name: 'Зубная щётка', description: 'Настоящая', price: 330 },
         { id: 3, name: 'Губка', description: 'Мягкая', price: 250 },
         { id: 4, name: 'Хозяйственное мыло', description: 'Надёжное', price: 70 },
-        { id: 5, name: 'Зубная нить', description: 'Тонкая', price: 330 },
+        { id: 5, name: 'Зубная нить', description: 'Тонкая', price: 654 },
       ],
       cart: []
     };

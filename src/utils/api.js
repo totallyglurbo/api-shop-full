@@ -65,3 +65,53 @@ export function productsRequest() {
         });
 }
 
+export function cartRequest() {
+    return fetch(`${API}/cart`)
+        .then(async (response) => {
+            const result = await response.json();
+        if (!response.ok) {
+            throw new Error(result.message);
+        }
+        if (!result.data || !Array.isArray(result.data)) {
+            throw new Error('Неверный формат ответа от сервера')
+        }
+        return result.data;
+        })
+}
+
+export const addToCartRequest = (productId) => {
+    return fetch(`${API}/cart/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify({ quantity: 1 })
+    }).then(async (response) => {
+        const result = await response.json();
+
+        if (response.status !== 201) {
+            throw new Error(result.data?.message || 'Ошибка при добавлении товара в корзину');
+        }
+        return result;
+    });
+};
+
+export const deleteFromCartRequest = (productId) => {
+    return fetch(`${API}/cart/${productId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify({ quantity: 1 })
+    }).then(async (response) => {
+        const result = await response.json();
+
+        if (response.status === 200) {
+            return result.data;
+        } else if (response.status === 403) {
+            throw new Error(result.error?.message || 'Доступ запрещен');
+        } else {
+            throw new Error(result.error?.message || 'Ошибка при удалении товара');
+        }
+    });
+};

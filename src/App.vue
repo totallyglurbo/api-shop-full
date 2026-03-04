@@ -2,6 +2,8 @@
   <div>
     <nav>
       <router-link to="/">Главная</router-link>
+      <router-link v-if="isAuthenticated" to="/cart">Корзина</router-link>
+      <a href="#" v-if="isAuthenticated">Оформленные заказы</a>
       <router-link v-if="!isAuthenticated" to="/login">Вход</router-link>
       <router-link v-if="!isAuthenticated" to="/register">Регистрация</router-link>
       <a href="#" v-if="isAuthenticated" @click.prevent="logout">Выйти</a>
