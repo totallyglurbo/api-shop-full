@@ -5,7 +5,7 @@
     <ul>
       <div class="cart-item-container">
         <li v-for="item in $store.state.cart" :key="item.id" class="cart-item">
-          {{ item.name }} — {{ item.price }} ₽ (Количество: {{ item.quantity }})
+          {{ item.name }} — {{ item.price }} ₽ (кол-во: {{ item.quantity }})
           <div class="add-remove">
             <button @click="decreaseQuantity(item)">-</button>
             <button @click="increaseQuantity(item)">+</button>
