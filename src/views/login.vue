@@ -8,6 +8,7 @@
           required
           v-model="email"
           :class="{ error: emailError }"
+          placeholder="email@example.com"
       />
       <div v-if="emailError" class="error-message">{{ emailError }}</div>
     </div>

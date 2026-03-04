@@ -90,12 +90,12 @@ button:hover, .submit:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     background-color: white;
     gap: 1em;
     padding: 1em;
     width: 30%;
     border-radius: 10px;
+    text-align: left;
 }
 .products-container {
     display: flex;

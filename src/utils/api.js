@@ -11,7 +11,7 @@ export const loginRequest = (user) => {
         .then(async response => {
             const result = await response.json();
             if (!response.ok) {
-                throw new Error(result.message || 'Проверьте введённые данные на правильность');
+                throw new Error(result.message || 'Проверьте данные на корректность!');
             }
             if (!result.data || !result.data.user_token) {
                 throw new Error('Неверный ответ сервера: отсутствует user_token');
@@ -45,7 +45,7 @@ export function logoutRequest() {
             }
             const result = await response.json();
             if (result?.data?.message !== 'logout') {
-                throw new Error('Ошибка выхода: неожиданный ответ сервера');
+                throw new Error('Ошибка выхода из аккаунта: неожиданный ответ сервера.');
             }
             return result.data.message;
         });
@@ -56,10 +56,10 @@ export function productsRequest() {
         .then(async (response) => {
             const result = await response.json();
             if (!response.ok) {
-                throw new Error(result.message || 'Ошибка при загрузке продуктов');
+                throw new Error(result.message || 'Ошибка при загрузке каталога продуктов.');
             }
             if (!result.data || !Array.isArray(result.data)) {
-                throw new Error('Неверный формат ответа от сервера');
+                throw new Error('Неверный формат ответа от сервера.');
             }
             return result.data;
         });
@@ -73,7 +73,7 @@ export function cartRequest() {
             throw new Error(result.message);
         }
         if (!result.data || !Array.isArray(result.data)) {
-            throw new Error('Неверный формат ответа от сервера')
+            throw new Error('Неверный формат ответа от сервера.')
         }
         return result.data;
         })
@@ -90,7 +90,7 @@ export const addToCartRequest = (productId) => {
         const result = await response.json();
 
         if (response.status !== 201) {
-            throw new Error(result.data?.message || 'Ошибка при добавлении товара в корзину');
+            throw new Error(result.data?.message || 'Ошибка при добавлении товара в корзину!');
         }
         return result;
     });
@@ -109,9 +109,9 @@ export const deleteFromCartRequest = (productId) => {
         if (response.status === 200) {
             return result.data;
         } else if (response.status === 403) {
-            throw new Error(result.error?.message || 'Доступ запрещен');
+            throw new Error(result.error?.message || 'Доступ запрещен!');
         } else {
-            throw new Error(result.error?.message || 'Ошибка при удалении товара');
+            throw new Error(result.error?.message || 'Ошибка при удалении товара.');
         }
     });
 };

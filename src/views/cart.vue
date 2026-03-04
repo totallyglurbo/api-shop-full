@@ -10,7 +10,7 @@
             <button @click="decreaseQuantity(item)">-</button>
             <button @click="increaseQuantity(item)">+</button>
           </div>
-          <button @click="removeItem(item)">Удалить</button>
+          <button @click="removeItem(item)">Удалить товар</button>
         </li>
       </div>
 

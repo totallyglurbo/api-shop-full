@@ -64,7 +64,7 @@ export default createStore({
                     .catch(error => {
                         commit('AUTH_ERROR');
                         localStorage.removeItem('myAppToken');
-                        reject(error || new Error('Ошибка аутентификации'));
+                        reject(error || new Error('Ошибка авторизации.'));
                     });
             });
         },
@@ -76,7 +76,7 @@ export default createStore({
                         resolve();
                     })
                     .catch(() => {
-                        reject(new Error('Ошибка регистрации'));
+                        reject(new Error('Ошибка регистрации.'));
                     });
             });
         },
@@ -92,7 +92,7 @@ export default createStore({
                     .catch((error) => {
                         commit('LOGOUT');
                         localStorage.removeItem('myAppToken');
-                        reject(error || new Error('Ошибка выхода'));
+                        reject(error || new Error('Ошибка выхода.'));
                     });
             });
         },
@@ -103,7 +103,7 @@ export default createStore({
                     commit('SET_PRODUCTS', products);
                 })
                 .catch(err => {
-                    console.error('Ошибка загрузки товаров:', err.message);
+                    console.error('Ошибка загрузки каталога товаров:', err.message);
                 });
         },
 
@@ -113,7 +113,7 @@ export default createStore({
                     commit('SET_PRODUCTS', cart);
                 })
                 .catch(err => {
-                    console.error('Ошибка', err.message);
+                    console.error('Ошибка:', err.message);
                 })
         },
 
@@ -124,7 +124,7 @@ export default createStore({
                         const product = {id: productId};
                         commit('addToCart', product);
                     } else {
-                        throw new Error('Не удалось добавить в корзину');
+                        throw new Error('Не удалось добавить в корзину.');
                     }
                 })
                 .catch(error => {
@@ -140,7 +140,7 @@ export default createStore({
                         const product = { id: productId };
                         commit('removeItem', product);
                     } else {
-                        throw new Error('Не удалось удалить из корзины');
+                        throw new Error('Не удалось удалить из корзины.');
                     }
                 })
                 .catch(error => {
