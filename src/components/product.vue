@@ -1,7 +1,5 @@
 <template>
-  <div class="product-item">
 
-  </div>
 </template>
 
 <script>
@@ -16,7 +14,9 @@ export default {
   },
 
   methods: {
-
+    addToCart() {
+      this.$store.commit('addToCart', this.product);
+    }
   }
 }
 </script>
