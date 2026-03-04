@@ -1,6 +1,6 @@
 <template>
   <div class="list-of-products">
-    <h2>Список товаров</h2>
+    <h2>Каталог товаров</h2>
     <div class="products-container">
       <Product
           v-for="product in products"
@@ -29,6 +29,7 @@ export default {
         { id: 3, name: 'Губка', description: 'Мягкая', price: 250 },
         { id: 4, name: 'Хозяйственное мыло', description: 'Надёжное', price: 70 },
         { id: 5, name: 'Зубная нить', description: 'Тонкая', price: 654 },
+        { id: 6, name: 'Полотенце', description: 'Качественное', price: 999 },
       ],
       cart: []
     };

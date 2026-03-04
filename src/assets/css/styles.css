@@ -1,5 +1,149 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-Medium.ttf');
+}
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #150801;
+}
+body {
+    display: flex;
+    justify-content: center;
+    padding-top: 2em;
+    padding-bottom: 3em;
+    width: 100vw;
+    min-height: 100vh;
+    background: #dad3cf;
+}
+h1 {
+padding-bottom: 2em;
+}
+#app {
+ text-align: center;
+ display: flex;
+ width: 80%;
+ column-gap: 1em;
+ justify-content: center;
+}
+nav {
+    padding: 1.5em 1em;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+nav a {
+    text-decoration: none;
+}
+nav a.router-link-exact-active {
+    color: white;
+}
+.add-remove {
+    display: flex;
+    justify-content: center;
+    gap: 0.1em;
+}
+.add-remove button {
+    background-color: #42b983;
+    padding: 0.3em;
+    border: none;
+    color: #ececec;
+}
+.cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5em;
+    padding-top: 1em;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 1em;
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+.cart-item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+button {
+    border: none;
+    background: #dad3cf;
+    padding: 1em;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+button:hover, .submit:hover {
+    background: #e4dfdc;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    gap: 1em;
+    padding: 1em;
+    width: 30%;
+    border-radius: 10px;
+}
+.products-container {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.list-of-products {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1em;
+    gap: 5em;
+}
+.login, .register {
+ display: flex;
+ flex-direction: column;
+ gap: 1em;
+}
+input {
+    border: 1px solid #1c1c1c;
+    border-radius: 2px;
+    padding: 7px;
+}
+.error {
+    border-color: red !important;
+    background-color: #ffe6e6;
+}
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin: 5px;
+}
+.error-input {
+    border-color: red;
+    outline: none;
+}
+.error-text {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 1em;
+}
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+    align-items: center;
+    flex-wrap: wrap;
 }

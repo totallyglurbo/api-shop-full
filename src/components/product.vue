@@ -2,7 +2,7 @@
   <div class="product-item">
     <h3>{{ product.name }}</h3>
     <p>Описание: {{ product.description }} </p>
-    <p>Цена: {{ product.price }} ₽</p>
+    <p>Стоимость: {{ product.price }} ₽</p>
     <button @click="addToCart">Добавить в корзину</button>
   </div>
 </template>
