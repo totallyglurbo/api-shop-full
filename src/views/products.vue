@@ -14,6 +14,7 @@
 
 <script>
 import Product from '@/components/product.vue';
+import { productsRequest } from '@/utils/api.js';
 import Cart from '@/views/cart.vue'
 
 export default {
@@ -23,21 +24,26 @@ export default {
   },
   data() {
     return {
-      products: [
-        { id: 1, name: 'Мыло', description: 'Вкусно пахнет', price: 100 },
-        { id: 2, name: 'Зубная щётка', description: 'Настоящая', price: 330 },
-        { id: 3, name: 'Губка', description: 'Мягкая', price: 250 },
-        { id: 4, name: 'Хозяйственное мыло', description: 'Надёжное', price: 70 },
-        { id: 5, name: 'Зубная нить', description: 'Тонкая', price: 654 },
-        { id: 6, name: 'Полотенце', description: 'Качественное', price: 999 },
-      ],
+      products: [],
       cart: []
     };
   },
+  mounted() {
+  this.loadProducts();
+},
   methods: {
     addToCart(productId) {
       this.$store.dispatch('addToCart', { productId, quantity: 1 });
-    }
+    },
+    loadProducts() {
+    productsRequest()
+      .then(data => {
+        this.products = data;
+      })
+      .catch(error => {
+        console.error('Ошибка загрузки продуктов:', error);
+      });
+  }
   }
 }
 </script>
