@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { loginRequest, registerRequest, logoutRequest, productsRequest, cartRequest, addToCartRequest, deleteFromCartRequest } from '@/utils/api.js'
+import { loginRequest, registerRequest, logoutRequest, productsRequest, cartRequest, addToCartRequest, deleteFromCartRequest, placeOrderRequest } from '@/utils/api.js'
 
 export default createStore({
     state: {
@@ -50,6 +50,10 @@ export default createStore({
         removeFromCart(state, itemId) {
             state.cart = state.cart.filter(i => i.id !== itemId);
         },
+        SET_CART(state, newCart) {
+        state.cart = newCart;
+        localStorage.setItem('cart', JSON.stringify(newCart));
+      }
     },
 
     actions: {
@@ -131,21 +135,34 @@ export default createStore({
             });
         },
 
-        DELETE_FROM_CART({ commit }, productId) {
-            return deleteFromCartRequest(productId)
-                .then(result => {
-                    if (result && result.message === "Item removed from cart") {
-                        const product = { id: productId };
-                        commit('removeItem', product);
-                    } else {
-                        throw new Error('Не удалось удалить из корзины.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Ошибка при удалении из корзины:', error);
-                    throw error;
-                });
-        }
+        DELETE_FROM_CART({ commit, state }, productId) {
+          return deleteFromCartRequest(productId)
+            .then(result => {
+              if (result.message === "Item removed from cart") {
+                commit('removeFromCart', productId);
+              } else {
+                throw new Error('Не удалось удалить из корзины.');
+              }
+            })
+            .catch(error => {
+              console.error('Ошибка при удалении из корзины:', error);
+              throw error;
+            });
+        },
+        PLACE_ORDER({ state, commit }) {
+        const orderData = {
+          cart: state.cart,
+        };
+
+    return placeOrderRequest(orderData)
+          .then((result) => {
+            alert('Заказ успешно оформлен! Спасибо за покупку.');
+            commit('SET_CART', []);
+          })
+          .catch((error) => {
+            alert(`Ошибка оформления заказа: ${error.message}`);
+          });
+      },
     },
 
     modules: {

@@ -115,3 +115,38 @@ export const deleteFromCartRequest = (productId) => {
         }
     });
 };
+
+export function placeOrderRequest(orderData) {
+  return fetch(`${API}/order`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify(orderData)
+  }).then(async (response) => {
+    const contentType = response.headers.get('Content-Type');
+
+    if (contentType && contentType.includes('application/json')) {
+      const result = await response.json();
+
+      if (response.ok) {
+        return {
+          success: true,
+          data: result.data,
+          message: result.data?.message || 'Заказ успешно оформлен.',
+          orderId: result.data?.order_id,
+        };
+      } else {
+        let errorMsg = 'Ошибка при оформлении заказа.';
+        if (result.error?.message) {
+          errorMsg = result.error.message;
+        } else if (result.message) {
+          errorMsg = result.message;
+        }
+        throw new Error(errorMsg);
+      }
+      const text = await response.text();
+      throw new Error(`Сервер вернул неожиданный ответ: ${text}`);
+    }
+  });
+}

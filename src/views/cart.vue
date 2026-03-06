@@ -52,7 +52,7 @@ export default {
       this.$store.commit('removeFromCart', item.id);
     },
     placeOrder() {
-      alert('Заказ оформлен!');
+      this.$store.dispatch('PLACE_ORDER');
     }
   }
 }
