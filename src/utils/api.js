@@ -88,7 +88,7 @@ export const addToCartRequest = (productId) => {
         body: JSON.stringify({ quantity: 1 })
     }).then(async (response) => {
         const result = await response.json();
-
+        console.log('Ответ с сервера:', result);
         if (response.status !== 201) {
             throw new Error(result.data?.message || 'Ошибка при добавлении товара в корзину!');
         }

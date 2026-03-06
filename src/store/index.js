@@ -117,20 +117,18 @@ export default createStore({
                 })
         },
 
-        ADD_TO_CART({commit}, productId) {
-            return addToCartRequest(productId)
-                .then(result => {
-                    if (result.data && result.data.message === "Product add to cart") {
-                        const product = {id: productId};
-                        commit('addToCart', product);
-                    } else {
-                        throw new Error('Не удалось добавить в корзину.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Ошибка при добавлении в корзину:', error);
-                    throw error;
-                });
+        ADD_TO_CART({commit, state}, productId) {
+          return addToCartRequest(productId)
+            .then(result => {
+              if (result.data && result.data.message === "Product add to cart") {
+                const product = state.products.find(p => p.id === productId);
+                if (product) {
+                  commit('addToCart', product);
+                }
+              } else {
+                throw new Error('Не удалось добавить в корзину.');
+              }
+            });
         },
 
         DELETE_FROM_CART({ commit }, productId) {
